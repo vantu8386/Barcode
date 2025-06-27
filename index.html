@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode </title>
+</head>
+ <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:disabled {
+      background-color: #ff9696;
+      cursor: not-allowed;
+    }
+
+    .barcode-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Tạo mã vạch từ chuỗi nhập vào</h2>
+
+    <label for="barcode-input">Nhập mã cần tạo:</label>
+    <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()">
+    
+    <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
+
+    <div class="barcode-container">
+      <svg id="barcode"></svg>
+    </div>
+  </div>
+
+  <!-- JsBarcode CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script>
+    function checkInput() {
+      const input = document.getElementById("barcode-input").value.trim();
+      const button = document.getElementById("generate-btn");
+      button.disabled = input === "";
+    }
+
+    function generateBarcode() {
+      const input = document.getElementById("barcode-input").value.trim();
+      const barcodeElement = document.getElementById("barcode");
+
+      JsBarcode(barcodeElement, input, {
+        format: "CODE128",
+        lineColor: "#000",
+        width: 2,
+        height: 100,
+        displayValue: true
+      });
+    }
+  </script>
+</body>
+</html>
