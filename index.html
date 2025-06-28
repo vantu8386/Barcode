@@ -80,7 +80,10 @@
     <label for="barcode-input">Tạo mã siêu nhanh:</label>
     <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()">
     
-    <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
+<div style="display: flex; gap: 10px;">
+  <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
+  <button onclick="clearInput()" style="background-color: #dc3545;">Xóa</button>
+</div>
 
     <div class="barcode-container">
       <svg id="barcode"></svg>
@@ -90,24 +93,31 @@
   <!-- JsBarcode CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
   <script>
-    function checkInput() {
-      const input = document.getElementById("barcode-input").value.trim();
-      const button = document.getElementById("generate-btn");
-      button.disabled = input === "";
-    }
+  function checkInput() {
+    const input = document.getElementById("barcode-input").value.trim();
+    const button = document.getElementById("generate-btn");
+    button.disabled = input === "";
+  }
 
-    function generateBarcode() {
-      const input = document.getElementById("barcode-input").value.trim();
-      const barcodeElement = document.getElementById("barcode");
+  function generateBarcode() {
+    const input = document.getElementById("barcode-input").value.trim();
+    const barcodeElement = document.getElementById("barcode");
 
-      JsBarcode(barcodeElement, input, {
-        format: "CODE128",
-        lineColor: "#000",
-        width: 2,
-        height: 100,
-        displayValue: true
-      });
-    }
-  </script>
+    JsBarcode(barcodeElement, input, {
+      format: "CODE128",
+      lineColor: "#000",
+      width: 2,
+      height: 100,
+      displayValue: true
+    });
+  }
+
+  // Hàm XÓA
+  function clearInput() {
+    document.getElementById("barcode-input").value = "";
+    document.getElementById("generate-btn").disabled = true;
+    document.getElementById("barcode").innerHTML = ""; // Xóa mã vạch nếu có
+  }
+</script>
 </body>
 </html>
