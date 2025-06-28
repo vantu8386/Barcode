@@ -16,6 +16,7 @@
     padding: 20px;
     margin: 0;
     background-color: #f4f4f4;
+    font-size: 16px;
   }
 
   .container {
@@ -82,6 +83,113 @@
     max-width: 100%;
     height: auto;
   }
+
+  .flex-number {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+  }
+
+  .flex-number button {
+    margin: 3px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    /* background-color: #ff9696; */
+  }
+
+  /* CSS */
+  .button-29 {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+  }
+
+  .button-29:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  }
+
+  .button-29:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+
+  .button-29:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+
+
+  /* CSS */
+  .button-30 {
+    align-items: center;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+  }
+
+  .button-30:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  }
+
+  .button-30:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+
+  .button-30:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+  }
 </style>
 </head>
 
@@ -94,7 +202,7 @@
     </div>
 
     <!-- Ô input + nút Xóa trên cùng 1 hàng -->
-    <label for="barcode-input">Tạo mã vạch:</label>
+    <label for="barcode-input"></label>
     <div style="display: flex; gap: 10px; margin-bottom: 15px;">
       <div style="width: 85%;">
         <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()">
@@ -106,9 +214,31 @@
     </div>
 
     <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
-
-
   </div>
+
+  <div class="container" style="margin-top: 10px;">
+    <div class="flex-number">
+      <button class="button-30" onclick="appendNumber('1')">1</button>
+      <button class="button-30" onclick="appendNumber('2')">2</button>
+      <button class="button-30" onclick="appendNumber('3')">3</button>
+    </div>
+    <div class="flex-number">
+      <button class="button-30" onclick="appendNumber('4')">4</button>
+      <button class="button-30" onclick="appendNumber('5')">5</button>
+      <button class="button-30" onclick="appendNumber('6')">6</button>
+    </div>
+    <div class="flex-number">
+      <button class="button-30" onclick="appendNumber('7')">7</button>
+      <button class="button-30" onclick="appendNumber('8')">8</button>
+      <button class="button-30" onclick="appendNumber('9')">9</button>
+    </div>
+    <div class="flex-number">
+      <button class="button-30">*</button>
+      <button class="button-30" onclick="appendNumber('0')">0</button>
+      <button class="button-30">#</button>
+    </div>
+  </div>
+
 
   <!-- JsBarcode CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
@@ -137,6 +267,13 @@
       document.getElementById("generate-btn").disabled = true;
       document.getElementById("barcode").innerHTML = "";
     }
+
+    function appendNumber(num) {
+      const inputEl = document.getElementById("barcode-input");
+      inputEl.value += num;
+      checkInput(); // Kích hoạt kiểm tra để bật nút tạo mã vạch nếu cần
+    }
+
   </script>
 
 </body>
