@@ -77,17 +77,21 @@
   <div class="container">
     <h2>This My love ❤️ </h2>
 
-    <label for="barcode-input">Tạo mã siêu nhanh:</label>
-    <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()">
-    
-<div style="display: flex; gap: 10px;">
-  <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
-  <button onclick="clearInput()" style="background-color: #dc3545;">Xóa</button>
-</div>
-
-    <div class="barcode-container">
+       <div class="barcode-container">
       <svg id="barcode"></svg>
     </div>
+    <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()">
+    
+    <!-- Bọc input và nút xóa trong 1 hàng -->
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+      <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()" style="flex: 1;">
+      <button onclick="clearInput()" style="background-color: #dc3545;">Xóa</button>
+    </div>
+    
+    <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
+
+
+   
   </div>
 
   <!-- JsBarcode CDN -->
@@ -112,12 +116,12 @@
     });
   }
 
-  // Hàm XÓA
   function clearInput() {
     document.getElementById("barcode-input").value = "";
     document.getElementById("generate-btn").disabled = true;
-    document.getElementById("barcode").innerHTML = ""; // Xóa mã vạch nếu có
+    document.getElementById("barcode").innerHTML = "";
   }
 </script>
+
 </body>
 </html>
