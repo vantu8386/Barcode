@@ -75,24 +75,21 @@
 </head>
 <body>
   <div class="container">
-    <h2>This My love ❤️ </h2>
+  <h2>This My love ❤️</h2>
 
-       <div class="barcode-container">
-      <svg id="barcode"></svg>
-    </div>
-    <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()">
-    
-    <!-- Bọc input và nút xóa trong 1 hàng -->
-    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-      <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()" style="flex: 1;">
-      <button onclick="clearInput()" style="background-color: #dc3545;">Xóa</button>
-    </div>
-    
-    <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
-
-
-   
+  <!-- Ô input + nút Xóa trên cùng 1 hàng -->
+  <label for="barcode-input">Tạo mã vạch:</label>
+  <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+    <input type="text" id="barcode-input" placeholder="VD: 123456789012" oninput="checkInput()" style="flex: 1;">
+    <button onclick="clearInput()" style="background-color: #dc3545;">Xóa</button>
   </div>
+
+  <button id="generate-btn" onclick="generateBarcode()" disabled>Tạo mã vạch</button>
+
+  <div class="barcode-container">
+    <svg id="barcode"></svg>
+  </div>
+</div>
 
   <!-- JsBarcode CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
