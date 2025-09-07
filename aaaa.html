@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Barcode Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 15px;
+      resize: vertical;
+    }
+
+    .flex-number {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .flex-number button {
+      flex: 1;
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      background: #eee;
+      cursor: pointer;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .controls button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #3f51b5;
+      color: white;
+    }
+
+    /* Modal styles */
+    #barcodeModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #barcodeModalContent {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-height: 90vh;
+      overflow-y: auto;
+      max-width: 90%;
+    }
+
+    #barcode-list > div {
+      margin-bottom: 20px;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .modal-close {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #888;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>💖 Tạo Mã Vạch</h2>
+    <label for="barcode-input">Nhập mỗi mã, cách nhau bằng dấu phẩy hoặc xuống dòng:</label>
+    <textarea id="barcode-input" placeholder="Ví dụ:\n234421, 4324, 423423\nhoặc\n234421\n4324\n423423"></textarea>
+
+    <div class="flex-number">
+      <button onclick="appendNumber('1')">1</button>
+      <button onclick="appendNumber('2')">2</button>
+      <button onclick="appendNumber('3')">3</button>
+    </div>
+    <div class="flex-number">
+      <button onclick="appendNumber('4')">4</button>
+      <button onclick="appendNumber('5')">5</button>
+      <button onclick="appendNumber('6')">6</button>
+    </div>
+    <div class="flex-number">
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+    </div>
+    <div class="flex-number">
+      <button>*</button>
+      <button onclick="appendNumber('0')">0</button>
+      <button>#</button>
+    </div>
+
+    <div class="controls">
+      <button onclick="deleteOneChar()">Xóa 1 ký tự</button>
+      <button onclick="clearAll()">Xóa tất cả</button>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <button onclick="showBarcodeModal()" style="width: 100%; background: green;">Tạo mã vạch hàng loạt</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="barcodeModal">
+    <div id="barcodeModalContent">
+      <h3>Danh sách mã vạch</h3>
+      <div id="barcode-list"></div>
+      <button class="modal-close" onclick="closeModal()">Đóng</button>
+    </div>
+  </div>
+
+  <script>
+    function appendNumber(num) {
+      const textarea = document.getElementById("barcode-input");
+      textarea.value += num;
+    }
+
+    function deleteOneChar() {
+      const textarea = document.getElementById("barcode-input");
+      textarea.value = textarea.value.slice(0, -1);
+    }
+
+    function clearAll() {
+      document.getElementById("barcode-input").value = "";
+    }
+
+    function showBarcodeModal() {
+      const modal = document.getElementById("barcodeModal");
+      const barcodeList = document.getElementById("barcode-list");
+      const input = document.getElementById("barcode-input").value.trim();
+
+      barcodeList.innerHTML = "";
+
+      // Tách theo dấu phẩy hoặc xuống dòng
+      const codes = input.split(/[\n,]+/).map(code => code.trim()).filter(code => code !== "");
+
+      if (codes.length === 0) {
+        alert("Vui lòng nhập ít nhất một mã vạch.");
+        return;
+      }
+
+      modal.style.display = "flex";
+
+      setTimeout(() => {
+        codes.forEach(code => {
+          const container = document.createElement("div");
+          const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+          try {
+            JsBarcode(svg, code, {
+              format: "CODE128",
+              lineColor: "#000",
+              width: 2,
+              height: 100,
+              displayValue: true
+            });
+
+            container.appendChild(svg);
+          } catch (e) {
+            const errorMsg = document.createElement("p");
+            errorMsg.textContent = `Mã lỗi: ${code}`;
+            errorMsg.style.color = "red";
+            container.appendChild(errorMsg);
+          }
+
+          barcodeList.appendChild(container);
+        });
+      }, 50);
+    }
+
+    function closeModal() {
+      document.getElementById("barcodeModal").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
